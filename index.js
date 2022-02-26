@@ -1,8 +1,7 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generateReadme = require ('./src/readme-template');
-const markdown = require('./utils/generateMarkdown');
+const generateMarkdown = require('./utils/generateMarkdown');
 
 // TODO: Create an array of questions for user input
 const questions = [
@@ -35,124 +34,70 @@ const questions = [
    
     {
         type: 'input',
-        name: 'installStep',
-        message: 'Provide a step-by-step description to install your project. Add one step at a time',
+        name: 'installation',
+        message: 'What command should be run to install dependencies',
         validate: installInput => {
             if (installInput) {
                 return true;
             } else {
-                console.log('Please enter a description of the step!');
+                console.log('Please enter an instruction to install dependencies!');
                 return false;
             }
         }        
-    },
+    },   
+    
     {
-        type: 'confirm',
-        name: 'addAnotherStep',
-        message: 'Would you like to add another step required to install your project?',
-        default: false
-    },
-    {
-        type: 'confirm',
+        type: 'input',
         name: 'usage',
-        message: 'Would you like to add instructions and examples for use?',
-        default: true
-    },
-    {
-        type: 'input',
-        name: 'instructions',
-        message: 'Provide instructions for use',
-        validate: instrucionsInput => {
-            if (instrucionsInput) {
-                return true;
+        message: 'What does the user needs to know about using the repo',
+        validate: gitHubInput => {
+            if (gitHubInput) {
+            return true;
             } else {
-                console.log('Please enter the instructions!');
-                return false;
-            }
-        }    
-    },
-    {
-        type: 'confirm',
-        name: 'screenshots',
-        message: 'Would you like to add an example screenshot? To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it',
-        default: true
-    },
-    {
-        type: 'input',
-        name: 'screenshotName',
-        message: 'Enter the file name of the screenshot. Ex: screenshot.png',
-        validate: screenshotInput => {
-            if (screenshotInput) {
-                return true;
-            } else {
-                console.log('Please enter the screenshot file name!');
-                return false;
+            console.log('Please enter instructions for how to use the repo');
+            return false;
             }
         }
     },
-    {
-        type: 'confirm',
-        name: 'credits',
-        message: 'Did you use any third-party assets, collaborators or follow tutorials? ',
-        default: true   
-    },
-    {
-        type: 'input',
-        name: 'collaboratorName',
-        message: 'Enter the third-party assets, collaborators or tutorial name',
-        validate: collaboratorInput => {
-            if (collaboratorInput) {
-                return true;
-            } else {
-                console.log('Please enter a name!');
-                return false;
-            }
-        }
-    },
-    {
-        type: 'input',
-        name: 'collaboratorLink',
-        message: 'Enter the third-party assets web link, collaborators link to their GitHub profile or tutorial link',
-        validate: collaboratorLinkInput => {
-            if (collaboratorLinkInput) {
-                return true;
-            } else {
-                console.log('Please enter a link!');
-                return false;
-            }
-        }
-    },
-    {
-        type: 'confirm',
-        name: 'tests',
-        message: 'Would you like to write tests for your application? ',
-        default: true   
-    },
-    {
-        type: 'input',
-        name: 'testDescription',
-        message: 'Enter your test',
-        validate: testDescriptionInput => {
-            if (testDescriptionInput) {
-                return true;
-            } else {
-                console.log('Please enter a test!');
-                return false;
-            }
-        }
-    },
-    {
-        type: 'confirm',
-        name: 'tests',
-        message: 'Would you like to add another test for your application? ',
-        default: true   
-    },
+
+
     {
         type: 'list',
-        name: 'licenses',
+        name: 'license',
         message: 'Select a license for your application',
-        choices: ['MIT', 'GNU GPLv3','Mozilla Public License 2.0', 'Apache License 2.0', 'Boost Software License 1.0', 'The Unlicense'] 
+        choices: ['MIT', 'GPLv3','Mozilla Public License 2.0', 'Apache License 2.0', 'None'] 
     },
+    
+   
+    {
+        type: 'input',
+        name: 'contribute',
+        message: 'What does the user needs to know about contributing to the repo',
+        validate: contributeInput => {
+            if (contributeInput) {
+            return true;
+            } else {
+            console.log('Please enter instructions for how to contribute');
+            return false;
+            }
+        }
+
+    },
+    
+    {
+        type: 'input',
+        name: 'test',
+        message: 'What command should be used to run test?',
+        validate: testInput => {
+            if (testInput) {
+                return true;
+            } else {
+                console.log('Please enter an instruction to run tests!');
+                return false;
+            }
+        }
+    },
+        
     {
         type: 'input',
         name: 'github',
@@ -179,18 +124,35 @@ const questions = [
             }
         }
     }
+    
 ];
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+const writeFile = data => {
+    fs.writeFile('./dist/README.md', data, err => {
+        if (err) {
+            console.log(err);
+            return;
+        } else {
+            console.log('The Readme file has been saved');
+        }
+        
+    });
+};
 
 // TODO: Create a function to initialize app
 //function init() {}
 const init = () => {
-return inquirer.prompt(questions)
-.then( readmeFile => {
-    return console.log(answers);
-});
+    return inquirer.prompt(questions)
+    .then( answers => {
+        return generateMarkdown(answers);
+    })
+    .then(data => {
+        return writeFile(data);
+    })
+    .catch(err => {
+        console.log(err);
+    });
 };
 
 // Function call to initialize app
