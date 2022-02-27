@@ -52,12 +52,8 @@ const generateMarkdown = data => {
 
   ${data.usage}
    
-  To add a screenshot, create an assets/images folder in your repository and upload your screenshot to it. Then, add it to your README using the relative filepath:
+  To add a screenshot, create an assets/images folder in your repository and upload your screenshot to it. Then, add it to your README using the relative filepath.
  
-  ```
-  (assets/images/screenshot.png)
-
-  ```
 
   ## License
 

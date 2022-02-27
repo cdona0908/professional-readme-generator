@@ -6,7 +6,7 @@
   
   ## Description
 
-  Every project should have a corresponding README file, providing information about it. 
+  Every project should have a corresponding README file providing information about it. 
   
   This application aims to accomplish that goal by dynamically generating a README.md file based on the answers entered by the user in the command-line. This allows the project creator to devote more time working on the project. 
   
@@ -47,7 +47,7 @@
   ```
   ![Readme Generator Demo](assets/images/readme-generator-video.gif)
 
-  Link to full video presentation: 
+  Link to full video presentation: https://drive.google.com/file/d/1xj6V5Rw1jUGmCBLVq99BQvraDPL7DBae/view 
 
  
     
