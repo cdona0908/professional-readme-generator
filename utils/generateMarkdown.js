@@ -51,7 +51,14 @@ const generateMarkdown = data => {
   To use the repo , see the following directions:
 
   ${data.usage}
-    
+   
+  To add a screenshot, create an assets/images folder in your repository and upload your screenshot to it. Then, add it to your README using the relative filepath:
+ 
+  ```
+  (assets/images/screenshot.png)
+
+  ```
+
   ## License
 
   
@@ -67,7 +74,7 @@ const generateMarkdown = data => {
 
   To run tests,please run the following command:
   
-  ${data.tests}
+  ${data.test}
 
   ## Questions
 
