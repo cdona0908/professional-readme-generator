@@ -34,10 +34,11 @@
   To use the repo , see the following directions:
 
   1. Git clone the repo down to your local.
-  2. Run npm install to install the  inquirer package that allows to prompt your inputs from the command line.
-  3. Run node index.js to initialize the application.
-  4. Answer the questions prompted in your command line.
-  5. Finally, a README file will be generated in the dist folder
+  2. Add a folder named dist to the root folder.
+  3. Run npm install to install the  inquirer package that allows to prompt your inputs from the command line.
+  4. Run node index.js to initialize the application.
+  5. Answer the questions prompted in your command line.
+  6. Finally, a README file will be generated in the dist folder
 
   To add a screenshot, create an assets/images folder in your repository and upload your screenshot to it. Then, add it to your README using the relative filepath:
   
